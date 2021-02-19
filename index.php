@@ -1,72 +1,42 @@
 <?php
 
-class Human
+class Table
 {
-    public $name;
-    public $age;
-    protected $health;
+  public $article;
+  public $title;
+  public $width;
+  public $height;
+  public $depth;
+  public $color;
 
+  function __construct($article, $title, $width, $height, $depth, $color)
+  {
+    $this->article = $article;
+    $this->title = $title;
+    $this->width = $width;
+    $this->height = $height;
+    $this->depth = $depth;
+    $this->color = $color;
+  }
 
-    public function __construct($name, $age, $health)
-    {
-        $this->name = $name;
-        $this->age = $age;
-        $this->health = $health;
-    }
-
-
-    public function sayName()
-    {
-        echo "Меня зовут " . $this->name;
-    }
+  function view()
+  {
+    echo "<p>Артикул: $this->article</p><h1>$this->title</h1><p>Ширина: $this->width<br />Высота: $this->height<br />Глубина: $this->depth<br /></p><p>Цвет: $this->color</p>";
+  }
 }
 
-class Warrior extends Human {
-    public $attack;
+$table1 = new Table(0000001, "Писменный стол", 60, 120, 60, "Белый");
 
-    public function __construct($name, $age, $health, $attack)
-    {
-        parent::__construct($name, $age, $health);
-        $this->attack = $attack;
-    }
+?>
 
-    public function attack(Human $man) {
-        $man->health -= $this->attack;
-        echo "Воин наносит урон {$man->name} на " . $this->attack . " пукнтов.";
-    }
-}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
 
-class Doctor extends Human {
+<?= $table1->view(); ?>
 
-    public $skill;
-
-    public function __construct($name, $age, $health, $skill)
-    {
-        parent::__construct($name, $age, $health);
-        $this->skill = $skill;
-    }
-
-    public function heal(Human $man) {
-        $man->health += $this->skill;
-        echo "Доктор лечит {$man->name} на " . $this->skill . " пукнтов.";
-    }
-
-    public function sayName()
-    {
-        parent::sayName();
-        echo "И я умею лечить на  " . $this->skill . ".";
-    }
-
-}
-
-$man = new Human("Вася", 1, 80);
-$doctor = new Doctor("Петя", 1, 50, 10);
-
-
-$doctorHouse = new Doctor("Хаус", 1, 90, 1000);
-$doctor->sayName();
-$doctor->heal($doctorHouse);
-
-
-
-
+</body>
+</html>
