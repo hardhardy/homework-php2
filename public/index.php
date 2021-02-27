@@ -9,12 +9,39 @@ use app\engine\Autoload;
 
 spl_autoload_register([new Autoload(), 'loadClass']);
 
-$product = new Product("Чай", "Цейлонский", 22);
-$product->insert();
-var_dump($product);
+$controllerName = $_GET['c'] ?? 'product';
+$actionName = $_GET['a'];
+
+$controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
+
+if (class_exists($controllerClass)) {
+    $controller = new $controllerClass();
+    $controller->runAction($actionName);
+}
+
+
+
+
+
+
 
 
 die();
+
+$user = new User("user", "123");
+$user->insert();
+var_dump($user);
+
+
+
+/**
+ * @var Product $product
+ */
+$product = Product::getOne(3);
+
+var_dump($product);
+
+
 
 $product = new Product();
 
@@ -28,20 +55,18 @@ die();
 //CREATE
 $product = new Product("Чай", "Цейлонский", 22);
 
-$product->insert();
+$product->save();
 
 //READ
-$product = new Product();
-$product->getOne(5);
-$product->getAll();
+$product = Product::getAll();
+
 
 //DELETE
-$product = new Product();
-$product->getOne(5);
+
+$product = Product::getOne(5);
 $product->delete();
 
 //UPDATE
-$product = new Product();
-$product->getOne(5);
+$product = Product::getOne(5);
 $product->name = "Чай!2";
-$product->update();
+$product->save();

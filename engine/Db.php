@@ -39,7 +39,7 @@ class Db {
     }
 
     public function lastInsertId() {
-        //TODO вернуть id
+        return $this->connection->lastInsertId();
     }
 
     private function query($sql, $params) {
@@ -48,10 +48,18 @@ class Db {
         return $stmt;
     }
 
-    private function queryOneObject($sql, $params, $class) {
+    public function queryLimit($sql, $limit) {
+        //LIMIT 0, $limit
+        $stmt = $this->getConnection()->prepare($sql);
+        $stmt->bindValue(1, $limit, \PDO::PARAM_INT);
+        return []; //TODO вернуть результат execute
+
+
+    }
+
+    public function queryOneObject($sql, $params, $class) {
         $stmt = $this->query($sql, $params);
-        //TODO заставить работать корректно
-        $stmt->setFetchMode(\PDO::FETCH_CLASS, $class);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, $class);
         return $stmt->fetch();
     }
 

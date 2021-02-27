@@ -3,9 +3,9 @@
 namespace app\models;
 
 
-class Product extends Model
+class Product extends DbModel
 {
-    public $id;
+    public $id = null;
     public $name;
     public $description;
     public $price;
@@ -17,8 +17,7 @@ class Product extends Model
         $this->price = $price;
     }
 
-
-    public function getTableName()
+    public static function getTableName()
     {
         return 'products';
     }
