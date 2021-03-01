@@ -9,8 +9,8 @@ use app\models\Basket;
 class BasketController extends Controller
 {
     public function actionIndex() {
-        //TODO Передать сессию в модель
-        $basket = Basket::getBasket();
+        $session_id = session_id();
+        $basket = Basket::getBasket($session_id);
         echo $this->render('basket', [
             'basket' => $basket
         ]);
