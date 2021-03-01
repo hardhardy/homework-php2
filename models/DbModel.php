@@ -16,6 +16,10 @@ abstract class DbModel extends Model
         return Db::getInstance()->queryAll($sql);
     }
 
+   public static function getWhere($name, $value) {
+        //TODO собрать запрос вида WHERE 'login' = 'admin'
+   }
+
     public static function getLimit($limit) {
         $tableName = static::getTableName();
         $sql = "SELECT * FROM {$tableName} LIMIT 0, ?";
@@ -35,9 +39,8 @@ abstract class DbModel extends Model
         $params = [];
         $columns = [];
 
-        foreach ($this as $key => $value) {
-            if ($key == "id") continue;
-            $params[":{$key}"] = $value;
+        foreach ($this->props as $key => $value) {
+            $params[":{$key}"] = $this->$key;
             $columns[] = $key;
         }
 
@@ -54,7 +57,20 @@ abstract class DbModel extends Model
     }
 
     public function update() {
+        $params = [];
+        $colums = [];
+        foreach ($this->props as $key => $value) {
+            if (!$value) continue;
+            $params[":{$key}"] = $this->$key;
+            $colums[] .= "`{$key}` = :{$key}";
+            $this->props[$key] = false;
+        }
+        $colums = implode(", ", $colums);
+        $tableName = static::getTableName();
+        $params['id'] = $this->id;
 
+        $sql = "UPDATE `{$tableName}` SET {$colums} WHERE `id` = :id";
+        Db::getInstance()->execute($sql, $params);
     }
 
     public function delete() {

@@ -49,10 +49,10 @@ class Db {
     }
 
     public function queryLimit($sql, $limit) {
-        //LIMIT 0, $limit
         $stmt = $this->getConnection()->prepare($sql);
         $stmt->bindValue(1, $limit, \PDO::PARAM_INT);
-        return []; //TODO вернуть результат execute
+        $stmt->execute();
+        return $stmt->fetchAll();
 
 
     }

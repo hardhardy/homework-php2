@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 29 2020 г., 21:09
+-- Время создания: Дек 08 2020 г., 21:40
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.5
 
@@ -18,8 +18,29 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `shop`
+-- База данных: `site`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `basket`
+--
+
+CREATE TABLE `basket` (
+  `id` int NOT NULL,
+  `session_id` text NOT NULL,
+  `product_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Дамп данных таблицы `basket`
+--
+
+INSERT INTO `basket` (`id`, `session_id`, `product_id`) VALUES
+(1, '111', 1),
+(4, '111', 2),
+(5, '222', 1);
 
 -- --------------------------------------------------------
 
@@ -39,7 +60,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`) VALUES
-(1, 'Чай', 'Цейлонский', 22),
+(1, 'Чай2', 'Цейлонский', 23),
 (2, 'Пицца', 'Пепперони', 43),
 (3, 'Одежда', 'Брендовая', 34);
 
@@ -67,6 +88,12 @@ INSERT INTO `users` (`id`, `login`, `pass`) VALUES
 --
 
 --
+-- Индексы таблицы `basket`
+--
+ALTER TABLE `basket`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `products`
 --
 ALTER TABLE `products`
@@ -81,6 +108,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT для сохранённых таблиц
 --
+
+--
+-- AUTO_INCREMENT для таблицы `basket`
+--
+ALTER TABLE `basket`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT для таблицы `products`

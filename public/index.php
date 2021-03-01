@@ -1,21 +1,25 @@
 <?php
+session_start();
 //TODO сделать путь абсолютным
 include "../config/config.php";
 include "../engine/Autoload.php";
 
+use app\engine\Render;
 use app\models\{Product, User};
 use app\engine\Autoload;
 
 
 spl_autoload_register([new Autoload(), 'loadClass']);
 
-$controllerName = $_GET['c'] ?? 'product';
-$actionName = $_GET['a'];
+$url = explode('/', $_SERVER['REQUEST_URI']);
+
+$controllerName = $url[1] ?: 'product';
+$actionName = $url[2];
 
 $controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
 
 if (class_exists($controllerClass)) {
-    $controller = new $controllerClass();
+    $controller = new $controllerClass(new Render());
     $controller->runAction($actionName);
 }
 
