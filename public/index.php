@@ -25,7 +25,7 @@ $actionName = $request->getActionName();
 $controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
 
 if (class_exists($controllerClass)) {
-    $controller = new $controllerClass(new Render());
+    $controller = new $controllerClass(new TwigRender());
     $controller->runAction($actionName);
 }
 

@@ -1,0 +1,13 @@
+<h2>Корзина</h2>
+{% if basket is odd %}
+{% for item in basket %}
+    <div>
+        <h2>{{ item.name }}</h2>
+        <p>Описание: {{ item.description }}</p>
+        <p>Цена:{{ item.price }}</p>
+        <button>Удалить</button>
+    </div>
+{% endfor %}
+{% else %}
+Корзина пуста
+{% endif %}
