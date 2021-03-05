@@ -20,12 +20,27 @@ class User extends DbModel
         $this->pass = $pass;
     }
 
+    public static function auth($login, $pass) {
+        $user = User::getWhere('login', $login);
+
+       //echo password_hash("123", PASSWORD_DEFAULT);
+        //password_verify($pass, $user->pass);
+
+        if ($pass == $user->pass) {
+            $_SESSION['auth']['login'] = $login;
+            $_SESSION['auth']['id'] = $user->id;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public static function isAuth() {
-        return isset($_SESSION['login']);
+        return isset($_SESSION['auth']['login']);
     }
 
     public static function getName() {
-        return $_SESSION['login'];
+        return $_SESSION['auth']['login'];
     }
 
 

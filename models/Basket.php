@@ -17,8 +17,16 @@ class Basket extends DbModel
         'product_id' => false
     ];
 
-    public static function getBasket() {
-        $session_id = session_id();
+
+    public function __construct($session_id = null, $product_id = null)
+    {
+        $this->session_id = $session_id;
+        $this->product_id = $product_id;
+    }
+
+
+    public static function getBasket($session_id) {
+
         $sql = "SELECT basket.id basket_id, products.id prod_id, products.name, products.description, products.price FROM `basket`,`products` WHERE `session_id` = '{$session_id}' AND basket.product_id = products.id";
         return Db::getInstance()->queryAll($sql);
 

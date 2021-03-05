@@ -1,20 +1,26 @@
 <?php
 session_start();
+
+
+use app\engine\Render;
+use app\engine\Request;
+use app\engine\TwigRender;
+use app\models\{Product, User};
+use app\engine\Autoload;
+
 //TODO сделать путь абсолютным
 include "../config/config.php";
 include "../engine/Autoload.php";
+include "../vendor/autoload.php";
 
-use app\engine\Render;
-use app\models\{Product, User};
-use app\engine\Autoload;
 
 
 spl_autoload_register([new Autoload(), 'loadClass']);
 
-$url = explode('/', $_SERVER['REQUEST_URI']);
+$request = new Request();
 
-$controllerName = $url[1] ?: 'product';
-$actionName = $url[2];
+$controllerName = $request->getControllerName() ?: 'product';
+$actionName = $request->getActionName();
 
 $controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
 
