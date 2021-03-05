@@ -2,8 +2,8 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Дек 08 2020 г., 21:40
+-- Хост: 127.0.0.1:3308
+-- Время создания: Мар 05 2021 г., 15:02
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.5
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `site`
+-- База данных: `homework-php2`
 --
 
 -- --------------------------------------------------------
@@ -38,9 +38,11 @@ CREATE TABLE `basket` (
 --
 
 INSERT INTO `basket` (`id`, `session_id`, `product_id`) VALUES
-(1, '111', 1),
-(4, '111', 2),
-(5, '222', 1);
+(22, 'gb7jota1h7ioqi9o3f9h0gol8fghq6q9', 1),
+(24, 'gb7jota1h7ioqi9o3f9h0gol8fghq6q9', 2),
+(25, 'gb7jota1h7ioqi9o3f9h0gol8fghq6q9', 3),
+(26, '7v8fsita248n8p6ll6780s3rpjg9lk55', 2),
+(27, '7v8fsita248n8p6ll6780s3rpjg9lk55', 1);
 
 -- --------------------------------------------------------
 
@@ -113,7 +115,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `basket`
 --
 ALTER TABLE `basket`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
