@@ -1,32 +1,35 @@
 <?php
 session_start();
 
-
 use app\engine\Render;
 use app\engine\Request;
-use app\engine\TwigRender;
-use app\models\{Product, User};
 use app\engine\Autoload;
 
 //TODO сделать путь абсолютным
 include "../config/config.php";
 include "../engine/Autoload.php";
-include "../vendor/autoload.php";
+//include "../vendor/autoload.php";
 
+try {
+    spl_autoload_register([new Autoload(), 'loadClass']);
 
+    $request = new Request();
 
-spl_autoload_register([new Autoload(), 'loadClass']);
+    $controllerName = $request->getControllerName() ?: 'product';
+    $actionName = $request->getActionName();
 
-$request = new Request();
+    $controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
 
-$controllerName = $request->getControllerName() ?: 'product';
-$actionName = $request->getActionName();
+    if (class_exists($controllerClass)) {
+        $controller = new $controllerClass(new Render());
+        $controller->runAction($actionName);
+    }
 
-$controllerClass = CONTROLLER_NAMESPACE . ucfirst($controllerName) . "Controller";
+} catch (\PDOException $exception) {
+    var_dump($exception->getMessage());
 
-if (class_exists($controllerClass)) {
-    $controller = new $controllerClass(new TwigRender());
-    $controller->runAction($actionName);
+} catch (\Exception $exception) {
+    var_dump($exception->getTrace());
 }
 
 
@@ -35,48 +38,3 @@ if (class_exists($controllerClass)) {
 
 
 
-
-die();
-
-$user = new User("user", "123");
-$user->insert();
-var_dump($user);
-
-
-
-/**
- * @var Product $product
- */
-$product = Product::getOne(3);
-
-var_dump($product);
-
-
-
-$product = new Product();
-
-$product = $product->getOne(4);
-$product->delete();
-
-
-
-
-die();
-//CREATE
-$product = new Product("Чай", "Цейлонский", 22);
-
-$product->save();
-
-//READ
-$product = Product::getAll();
-
-
-//DELETE
-
-$product = Product::getOne(5);
-$product->delete();
-
-//UPDATE
-$product = Product::getOne(5);
-$product->name = "Чай!2";
-$product->save();

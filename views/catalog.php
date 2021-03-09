@@ -5,6 +5,12 @@
         <h3><a href="/product/card/?id=<?= $item['id'] ?>"><?= $item['name'] ?></a></h3>
         <p>price: <?= $item['price'] ?></p>
         <button data-id="<?= $item['id'] ?>" class="buy">Купить</button>
+
+        <!--        <form action="/basket/add" method="post">
+            <input type="text" name="id" hidden value="<? /*=$item['id']*/ ?>">
+          <button type="submit">Купить</button>
+        </form>-->
+
     </div>
 <?php endforeach; ?>
 
