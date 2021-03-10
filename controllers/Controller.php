@@ -7,6 +7,7 @@ namespace app\controllers;
 use app\interfaces\IRenderer;
 use app\models\repositories\BasketRepository;
 use app\models\repositories\UserRepository;
+use app\engine\App;
 
 
 class Controller
@@ -41,9 +42,9 @@ class Controller
         if ($this->useLayout) {
             return $this->renderTemplate("layouts/{$this->defaultLayout}", [
                 'menu' => $this->renderTemplate('menu', [
-                    'isAuth' => (new UserRepository())->isAuth(),
-                    'userName' => (new UserRepository())->getName(),
-                    'count' => (new BasketRepository())->getCountWhere('session_id', session_id())
+                    'isAuth' => App::call()->usersRepository->isAuth(),
+                    'userName' => App::call()->usersRepository->getName(),
+                    'count' => App::call()->basketRepository->getCountWhere('session_id', session_id())
                 ]),
                 'content' => $this->renderTemplate($template, $params)
             ]);

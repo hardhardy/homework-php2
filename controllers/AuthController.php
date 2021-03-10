@@ -6,15 +6,16 @@ namespace app\controllers;
 
 use app\engine\Request;
 use app\models\repositories\UserRepository;
+use app\engine\App;
 
 
 class AuthController extends Controller
 {
     public function actionLogin() {
-        $login = (new Request())->getParams()['login'];
-        $pass = (new Request())->getParams()['pass'];
+        $login = App::call()->request->getParams()['login'];
+        $pass = App::call()->request->getParams()['pass'];
 
-        if ((new UserRepository())->auth($login, $pass)) {
+        if (App::call()->usersRepository->auth($login, $pass)) {
             header("Location:" . $_SERVER['HTTP_REFERER']);
             die();
         } else {
@@ -23,7 +24,7 @@ class AuthController extends Controller
     }
 
     public function actionLogout() {
-        session_destroy();
+        App::call()->session->destroy();
         header("Location:" . $_SERVER['HTTP_REFERER']);
         die();
     }
