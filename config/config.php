@@ -19,7 +19,7 @@ return [
             'host' => 'localhost',
             'login' => 'root',
             'password' => 'root',
-            'database' => 'shop',
+            'database' => 'homework-php2',
             'charset' => 'utf8'
         ],
         'request' => [

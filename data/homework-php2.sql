@@ -2,8 +2,8 @@
 -- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Дек 08 2020 г., 21:40
+-- Хост: 127.0.0.1:3308
+-- Время создания: Мар 15 2021 г., 10:57
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.5
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `site`
+-- База данных: `homework-php2`
 --
 
 -- --------------------------------------------------------
@@ -41,6 +41,21 @@ INSERT INTO `basket` (`id`, `session_id`, `product_id`) VALUES
 (1, '111', 1),
 (4, '111', 2),
 (5, '222', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int NOT NULL,
+  `name` text NOT NULL,
+  `phone` text NOT NULL,
+  `adres` text NOT NULL,
+  `session_id` text NOT NULL,
+  `status` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -81,7 +96,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `login`, `pass`) VALUES
-(1, 'admin', '123');
+(1, 'admin', '$2y$10$GAh95KWqFf1Fw4YyH/BCnuODYbJ1Mln78vDuOIwj7WQvChhR8QcX.');
 
 --
 -- Индексы сохранённых таблиц
@@ -91,6 +106,12 @@ INSERT INTO `users` (`id`, `login`, `pass`) VALUES
 -- Индексы таблицы `basket`
 --
 ALTER TABLE `basket`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `orders`
+--
+ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -114,6 +135,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `basket`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT для таблицы `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
