@@ -2,11 +2,9 @@
 
 namespace app\models;
 
-use app\interfaces\IModels;
-use app\engine\Db;
 
 
-abstract class Model implements IModels
+abstract class Model
 {
     protected $props = [];
 

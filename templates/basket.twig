@@ -1,0 +1,36 @@
+<h2>Корзина</h2>
+{% if basket is odd %}
+{% for item in basket %}
+    <div>
+        <h2>{{ item.name }}</h2>
+        <p>Описание: {{ item.description }}</p>
+        <p>Цена:{{ item.price }}</p>
+        <button>Удалить</button>
+    </div>
+{% endfor %}
+{% else %}
+Корзина пуста
+{% endif %}
+
+<script>
+    let buttons = document.querySelectorAll('.delete');
+    buttons.forEach((elem) => {
+        elem.addEventListener('click', () => {
+            let id = elem.getAttribute('data-id');
+            (
+                async () => {
+                    const response = await fetch('/basket/delete', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json;charset=utf-8'},
+                        body: JSON.stringify({
+                            id: id
+                        })
+                    });
+                    const answer = await response.json();
+                    document.getElementById('count').innerText = answer.count;
+                    document.getElementById(id).remove();
+                }
+            )();
+        })
+    });
+</script>

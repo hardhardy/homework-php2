@@ -1,20 +1,14 @@
 <h2>Каталог</h2>
 
-<?php foreach ($catalog as $item): ?>
-    <div>
-        <h3><a href="/product/card/?id=<?= $item['id'] ?>"><?= $item['name'] ?></a></h3>
-        <p>price: <?= $item['price'] ?></p>
-        <button data-id="<?= $item['id'] ?>" class="buy">Купить</button>
+{% for item in catalog %}
+<div>
+    <h3><a href="/product/card/?id={{ item.id }}">{{ item.name }}</a></h3>
+    <p>Цена: {{ item.price }}</p>
+    <button data-id={{ item.id }} class="buy">Купить</button>
+</div>
+{% endfor %}
 
-        <!--        <form action="/basket/add" method="post">
-            <input type="text" name="id" hidden value="<? /*=$item['id']*/ ?>">
-          <button type="submit">Купить</button>
-        </form>-->
-
-    </div>
-<?php endforeach; ?>
-
-<a href="/product/catalog/?page=<?= $page ?>">Еще</a>
+<a href="/product/catalog/?page={{ page }}">Еще</a>
 
 <script>
     let buttons = document.querySelectorAll('.buy');
@@ -22,7 +16,7 @@
         elem.addEventListener('click', () => {
             let id = elem.getAttribute('data-id');
             (
-               async () => {
+                async () => {
                     const response = await fetch('/basket/add', {
                         method: 'POST',
                         headers: {'Content-Type': 'application/json;charset=utf-8'},

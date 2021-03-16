@@ -1,8 +1,10 @@
 <?php
 
-namespace app\models;
+namespace app\models\entities;
 
-class User extends DbModel
+use app\models\Model;
+
+class User extends Model
 {
     protected $id = null;
     protected $login;
@@ -20,17 +22,5 @@ class User extends DbModel
         $this->pass = $pass;
     }
 
-    public static function isAuth() {
-        return isset($_SESSION['login']);
-    }
-
-    public static function getName() {
-        return $_SESSION['login'];
-    }
-
-
-    public static function getTableName() {
-        return 'users';
-    }
 
 }
